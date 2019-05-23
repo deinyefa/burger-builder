@@ -8,3 +8,15 @@
   margin: auto;
   padding: 10px 0;
 }
+
+.BuildControls .Checkout {
+  color: white;
+  font: inherit;
+  font-size: 20px;
+  text-transform: uppercase;
+  padding: .5em 2em;
+  margin: 2em auto 15px;
+  background: #17b518;
+  cursor: pointer;
+  border-radius: 10px;
+}
