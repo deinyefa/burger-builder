@@ -18,7 +18,7 @@ class BurgerBuilder extends Component {
   addIngredientHandler = type => {
     const { ingredients, totalPrice } = this.state;
 
-    const updatedCount = this.state.ingredients[type] + 1;
+    const updatedCount = ingredients[type] + 1;
     const newPrice = totalPrice + INGREDIENT_PRICES[type];
 
     // STATE SHOULD REMAIN IMMUTABLE
@@ -28,16 +28,48 @@ class BurgerBuilder extends Component {
     };
 
     updatedIngredients[type] = updatedCount;
-    console.log(totalPrice);
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
   }
 
+  removeIngredientHandler = type => {
+    const { ingredients, totalPrice } = this.state;
+    
+    if (ingredients[type] <= 0) {
+      return;
+    }
+
+    const newPrice = totalPrice - INGREDIENT_PRICES[type];
+    const updatedCount = ingredients[type] - 1;
+
+    // !!!!! STATE SHOULD REMAIN IMMUTABLE !!!!!!
+    // ... will copy the contents of state into updatedIngredients object
+    const updatedIngredients = {
+      ...ingredients
+    };
+
+    updatedIngredients[type] = updatedCount;
+    this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
+  }
+
   render() {
+    const disabledInfo = {
+      ...this.state.ingredients
+    };
+
+    for (let key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0
+    }
+
+    // disabled info will now be
+    // { meat: true, salad: false, ...etc}
+
     return (
       <Fragment>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls 
-          ingredientAdded={this.addIngredientHandler} />
+          ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredientHandler}
+          disabled={disabledInfo} />
       </Fragment>
     )
   }
