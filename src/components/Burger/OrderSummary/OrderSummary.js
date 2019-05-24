@@ -21,7 +21,7 @@ const orderSummary = props => {
       <ul>
         {ingredientsSummary}
       </ul>
-      <p>Your total is: <strong style={{ color: '#944317'}}>${props.orderTotal}</strong></p>
+      <p>Your total is: <strong style={{ color: '#944317' }}>${props.orderTotal}</strong></p>
       <Button 
         className={OrderSummaryStyles.Order} 
         btnType="Danger" 
