@@ -1,0 +1,10 @@
+.Order {
+  font: inherit;
+  padding: 15px 20px;
+  background-color: #cf8f23;
+  color: white;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+  cursor: pointer;
+}

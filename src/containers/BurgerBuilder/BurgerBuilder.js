@@ -2,7 +2,11 @@ import React, { Component, Fragment } from 'react';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+
+
 import INGREDIENT_PRICES from '../../constants/IngredientPrices';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 class BurgerBuilder extends Component {
   state = {
@@ -67,7 +71,7 @@ class BurgerBuilder extends Component {
       .reduce((sum, el) => {
         return sum + el;
       }, 0);
-      console.log(sum);
+    // console.log(sum);
     this.setState({ purchasable: sum > 0 })
   }
 
@@ -85,6 +89,7 @@ class BurgerBuilder extends Component {
 
     return (
       <Fragment>
+        <Modal><OrderSummary ingredients={this.state.ingredients} /></Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
