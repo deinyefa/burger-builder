@@ -1,9 +1,15 @@
 import React from 'react';
 
-const drawerToggle = props => {
-  return (
-    <p onClick={props.toggleDrawer}>Hamburger Icon</p>
-  );
-}
+import DrawerToggleStyles from './DrawerToggle.module.css';
+
+const drawerToggle = props => (
+  <div
+    className={DrawerToggleStyles.DrawerToggle}
+    onClick={props.toggleDrawer}>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+);
 
 export default drawerToggle;

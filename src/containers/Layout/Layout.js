@@ -4,22 +4,24 @@ import LayoutStyles from './Layout.module.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
-class Layout extends Component { 
+class Layout extends Component {
 
   state = {
     showSideDrawer: false,
   }
 
   sideDrawerToggleHandler = () => {
-    this.setState({ showSideDrawer: !this.state.showSideDrawer })
+    this.setState(prevState => {
+      return { showSideDrawer: !prevState.showSideDrawer }
+    })
   }
 
   render() {
     return (
       <Fragment>
         <Toolbar toggleDrawer={this.sideDrawerToggleHandler} />
-        <SideDrawer 
-          toggleSideDrawer={this.sideDrawerToggleHandler} 
+        <SideDrawer
+          toggleSideDrawer={this.sideDrawerToggleHandler}
           showSideDrawer={this.state.showSideDrawer} />
         <main className={LayoutStyles.Layout}>
           {this.props.children}

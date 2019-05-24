@@ -30,7 +30,7 @@ const orderSummary = props => {
       <Button 
         className={OrderSummaryStyles.Order} 
         btnType="Success" 
-        clicked={props.purchaseContinued}>Continue to Checkout</Button>
+        clicked={props.purchaseContinued}>Checkout</Button>
 
     </Fragment>
   )
