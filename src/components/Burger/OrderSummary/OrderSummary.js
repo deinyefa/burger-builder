@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
-import OrderSummaryStyles from './OrderSummary.module.css'
+import Button from '../../UI/Button/Button';
+import OrderSummaryStyles from './OrderSummary.module.css';
 
 const orderSummary = props => {
 
@@ -20,7 +21,16 @@ const orderSummary = props => {
       <ul>
         {ingredientsSummary}
       </ul>
-      <p><button className={OrderSummaryStyles.Order}>Continue to Checkout</button></p>
+      <p>Your total is: <strong style={{ color: '#944317'}}>${props.orderTotal}</strong></p>
+      <Button 
+        className={OrderSummaryStyles.Order} 
+        btnType="Danger" 
+        clicked={props.purchaseCanceled}>CANCEL</Button>
+        
+      <Button 
+        className={OrderSummaryStyles.Order} 
+        btnType="Success" 
+        clicked={props.purchaseContinued}>Continue to Checkout</Button>
 
     </Fragment>
   )
