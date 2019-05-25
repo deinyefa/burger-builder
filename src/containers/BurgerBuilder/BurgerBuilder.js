@@ -14,16 +14,20 @@ import { baseURL } from '../../constants/firebaseEnv';
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-    },
+    ingredients: null,
     totalPrice: 2,
     purchasable: false,
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false,
+  }
+
+  componentDidMount = () => {
+    axios.get(baseURL + '/ingredients.json')
+      .then(res => {
+        this.setState({ ingredients: res.data });
+      })
+      .catch(err => this.setState({ error: true }))
   }
 
   addIngredientHandler = type => {
@@ -129,22 +133,24 @@ class BurgerBuilder extends Component {
     // { meat: true, salad: false, ...etc}
 
     let orderSummary = <OrderSummary
-    ingredients={this.state.ingredients}
-    purchaseCanceled={this.purchaseCancelHandler}
-    purchaseContinued={this.purchaseContinueHandler}
-    orderTotal={this.state.totalPrice.toFixed(2)} />;
+      ingredients={this.state.ingredients}
+      purchaseCanceled={this.purchaseCancelHandler}
+      purchaseContinued={this.purchaseContinueHandler}
+      orderTotal={this.state.totalPrice.toFixed(2)} />;
 
-    if (this.state.loading) {
+    if (this.state.loading || !this.state.ingredients) {
       orderSummary = <Spinner />
     }
 
-    return (
-      <Fragment>
-        <Modal
-          show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}>
-            {orderSummary}
-        </Modal>
+    let burger =
+      this.state.error
+        ?
+        <p style={{ textAlign: 'center' }}>Oh no! Something went very wrong. Please come back another time.</p>
+        :
+        <Spinner />
+
+    if (this.state.ingredients) {
+      burger = <Fragment>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
@@ -153,6 +159,17 @@ class BurgerBuilder extends Component {
           purchasable={this.state.purchasable}
           price={this.state.totalPrice.toFixed(2)}
           ordered={this.purchaseHandler} />
+      </Fragment>
+    }
+
+    return (
+      <Fragment>
+        <Modal
+          show={this.state.purchasing}
+          modalClosed={this.purchaseCancelHandler}>
+          {orderSummary}
+        </Modal>
+        {burger}
       </Fragment>
     )
   }
