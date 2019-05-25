@@ -2,11 +2,12 @@ import React, { Component, Fragment } from 'react';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
-
-
-import INGREDIENT_PRICES from '../../constants/IngredientPrices';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+
+import INGREDIENT_PRICES from '../../constants/IngredientPrices';
+import axios from '../../axios-orders';
+import { baseURL } from '../../constants/firebaseEnv';
 
 class BurgerBuilder extends Component {
   state = {
@@ -85,7 +86,24 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    alert('Proceed to payment!')
+    // alert('Proceed to payment!')
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,  //- On a real app, recalculate the price on the server!
+      customer: {
+        name: 'Fiyin Eporwei',
+        address: {
+          street: '123 Sweetland Ave West',
+          postalCode: 'W4Y 4T6',
+          country: 'Canada',
+          email: 'test@test.com'
+        },
+        deliveryMethod: 'express',
+      }
+    }
+    axios.post(baseURL + '/orders.json', order)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
   }
 
   render() {
