@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import SpinnerStyles from './Spinner.module.css'
+import SpinnerStyles from "./Spinner.module.css";
 
 const spinner = props => (
-  <div className={SpinnerStyles.Spinner}>Loading...</div>
+	<div className={SpinnerStyles.Spinner}>Loading...</div>
 );
 
-export default spinner
+export default spinner;

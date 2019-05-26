@@ -1,18 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import Layout from './containers/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Layout from "./containers/Layout/Layout";
+import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 
 // import appStyles from './App.module.css';
 
 function App() {
-  return (
-    // <div>
-      <Layout>
-        <BurgerBuilder />
-      </Layout>
-    // {/* </div> */}
-  );
+	return (
+		<Layout>
+			<BurgerBuilder />
+		</Layout>
+	);
 }
 
 export default App;

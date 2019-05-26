@@ -1,45 +1,45 @@
 .NavigationItem {
-  margin: 10px;
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
+	margin: 10px;
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
 }
 
 .NavigationItem a {
-  color: #8f5c2c;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  display: block;
+	color: #8f5c2c;
+	text-decoration: none;
+	width: 100%;
+	box-sizing: border-box;
+	display: block;
 }
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-  color: #17b518;
+	color: #17b518;
 }
 
 @media (min-width: 500px) {
-  .NavigationItem {
-    margin: 0 15px;
-    /* display: flex; */
-    height: 100%;
-    width: auto;
-    align-self: center;
-  }
-  
-  .NavigationItem a {
-    color: white;
-    height: 100%;
-    padding: 16px 10px;
-    border-bottom: 4px solid transparent;
-  }
-  
-  .NavigationItem a:hover,
-  .NavigationItem a:active,
-  .NavigationItem a.active {
-    background-color: #8f5c2c;
-    border-color: #17b518;
-    color: white;
-  }
+	.NavigationItem {
+		margin: 0 15px;
+		/* display: flex; */
+		height: 100%;
+		width: auto;
+		align-self: center;
+	}
+
+	.NavigationItem a {
+		color: white;
+		height: 100%;
+		padding: 16px 10px;
+		border-bottom: 4px solid transparent;
+	}
+
+	.NavigationItem a:hover,
+	.NavigationItem a:active,
+	.NavigationItem a.active {
+		background-color: #8f5c2c;
+		border-color: #17b518;
+		color: white;
+	}
 }

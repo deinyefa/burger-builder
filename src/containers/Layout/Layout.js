@@ -1,34 +1,34 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, Component } from "react";
 
-import LayoutStyles from './Layout.module.css';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import LayoutStyles from "./Layout.module.css";
+import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
+import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
 class Layout extends Component {
+	state = {
+		showSideDrawer: false,
+	};
 
-  state = {
-    showSideDrawer: false,
-  }
+	sideDrawerToggleHandler = () => {
+		this.setState(prevState => {
+			return { showSideDrawer: !prevState.showSideDrawer };
+		});
+	};
 
-  sideDrawerToggleHandler = () => {
-    this.setState(prevState => {
-      return { showSideDrawer: !prevState.showSideDrawer }
-    })
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <Toolbar toggleDrawer={this.sideDrawerToggleHandler} />
-        <SideDrawer
-          toggleSideDrawer={this.sideDrawerToggleHandler}
-          showSideDrawer={this.state.showSideDrawer} />
-        <main className={LayoutStyles.Layout}>
-          {this.props.children}
-        </main>
-      </Fragment>
-    );
-  }
+	render() {
+		return (
+			<Fragment>
+				<Toolbar toggleDrawer={this.sideDrawerToggleHandler} />
+				<SideDrawer
+					toggleSideDrawer={this.sideDrawerToggleHandler}
+					showSideDrawer={this.state.showSideDrawer}
+				/>
+				<main className={LayoutStyles.Layout}>
+					{this.props.children}
+				</main>
+			</Fragment>
+		);
+	}
 }
 
 export default Layout;
