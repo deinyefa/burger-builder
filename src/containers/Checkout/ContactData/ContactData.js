@@ -4,45 +4,94 @@ import axios from "../../../axios-orders";
 import { baseURL } from "../../../constants/firebaseEnv";
 
 import Button from "../../../components/UI/Button/Button";
+import Input from "../../../components/UI/Input/Input";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import ContactDataStyles from "./ContactData.module.css";
 
 class ContactData extends Component {
 	state = {
-		name: "",
-		email: "",
-		address: {
-			street: "",
-			postalCode: "",
+		orderForm: {
+			name: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "Your Name",
+				},
+				value: "",
+			},
+			street: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "123 Sweetland Ave West",
+				},
+				value: "",
+			},
+			postalCode: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "W4Y 4T6",
+				},
+				value: "",
+			},
+			country: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "Canada",
+				},
+				value: "",
+			},
+			email: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "John.Doe@example.com",
+				},
+				value: "",
+			},
+			deliveryMethod: {
+				elementType: "select",
+				elementConfig: {
+					options: [
+						{
+							value: "fastest",
+							displayValue: "Fastest",
+						},
+						{
+							value: "standard",
+							displayValue: "Standard",
+						},
+					],
+				},
+				value: "fastest",
+			},
 		},
+		loading: false,
 	};
 
 	orderHandler = event => {
-        event.preventDefault();
-        
+		event.preventDefault();
         this.setState({ loading: true });
         
+		const formData = {};
+		for (let elID in this.state.orderForm) {
+			formData[elID] = this.state.orderForm[elID].value;
+		}
 		const order = {
 			ingredients: this.props.ingredients,
-			price: this.props.price, //- On a real app, recalculate the price on the server!
-			customer: {
-				name: "Fiyin Eporwei",
-				address: {
-					street: "123 Sweetland Ave West",
-					postalCode: "W4Y 4T6",
-					country: "Canada",
-					email: "test@test.com",
-				},
-				deliveryMethod: "express",
-			},
-		};
+            price: this.props.price, //- On a real app, recalculate the price on the server!
+            orderData: formData,
+        };
+        
 		axios
 			.post(baseURL + "/orders.json", order)
 			.then(response => {
 				this.setState({
 					loading: false,
-                });
-                this.props.history.push('/');
+				});
+				this.props.history.push("/");
 			})
 			.catch(error => {
 				this.setState({
@@ -52,39 +101,45 @@ class ContactData extends Component {
 			});
 	};
 
+	inputChangedHandler = (event, inputIdentifier) => {
+		const updatedContactForm = {
+			...this.state.orderForm,
+		};
+		// Deeply clone child objects! -> name, street, postalCode, etc
+		const updatedFormElement = { ...updatedContactForm[inputIdentifier] };
+		updatedFormElement.value = event.target.value;
+		updatedContactForm[inputIdentifier] = updatedFormElement;
+
+		this.setState({ orderForm: updatedContactForm });
+	};
+
 	render() {
+		const formElementsArray = [];
+
+		for (let key in this.state.orderForm) {
+			formElementsArray.push({
+				id: key,
+				config: this.state.orderForm[key],
+			});
+		}
+
 		let form = (
 			<Fragment>
 				<h4>Contact Information</h4>
-				<form>
-					<input
-						className={ContactDataStyles.Input}
-						type="text"
-						name="name"
-						placeholder="John Doe"
-					/>
-					<input
-						className={ContactDataStyles.Input}
-						type="text"
-						name="email"
-						placeholder="John.Doe@example.com"
-					/>
-					<input
-						className={ContactDataStyles.Input}
-						type="text"
-						name="street"
-						placeholder="1st Ave E"
-					/>
-					<input
-						className={ContactDataStyles.Input}
-						type="text"
-						name="postal code"
-						placeholder="100974"
-					/>
+				<form onSubmit={this.orderHandler}>
+					{formElementsArray.map(el => (
+						<Input
+							key={el.id}
+							elementType={el.config.elementType}
+							elementConfig={el.config.elementConfig}
+							value={el.config.value}
+							changed={event =>
+								this.inputChangedHandler(event, el.id)
+							}
+						/>
+					))}
+					<Button btnType="Success">ORDER</Button>
 				</form>
-				<Button btnType="Success" clicked={this.orderHandler}>
-					ORDER
-				</Button>
 			</Fragment>
 		);
 
