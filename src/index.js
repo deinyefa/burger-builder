@@ -1,15 +1,18 @@
+import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import Firebase, { FirebaseContext } from "./firebase";
+import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-import { BrowserRouter } from "react-router-dom";
-
 const app = (
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
+  <FirebaseContext.Provider value={new Firebase()}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </FirebaseContext.Provider>
 );
 
 ReactDOM.render(app, document.getElementById("root"));
