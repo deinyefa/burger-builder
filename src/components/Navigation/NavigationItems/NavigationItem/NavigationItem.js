@@ -9,6 +9,7 @@ const navigationItem = (props) => (
       to={props.linkTarget}
       exact={props.exact}
       activeClassName={NaviationItemStyles.active}
+      onClick={props.onClick}
     >
       {props.linkTitle}
     </NavLink>
@@ -18,6 +19,7 @@ const navigationItem = (props) => (
 navigationItem.propTypes = {
   linkTitle: PropTypes.string.isRequired,
   linkTarget: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default navigationItem;

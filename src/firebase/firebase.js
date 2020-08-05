@@ -14,6 +14,9 @@ class Firebase {
     app.initializeApp(firebaseConfig);
 
     this.auth = app.auth();
+
+    this.auth.useDeviceLanguage();
+    this.googleProvider = new app.auth.GoogleAuthProvider();
   }
 
   createUserWithEmailAndPassword = (email, password) =>
@@ -28,6 +31,25 @@ class Firebase {
   passwordReset = (email) => this.auth.sendPasswordResetEmail(email);
 
   passwordUpdate = (password) => this.auth.currentUser.updatePassword(password);
+
+  /* SIGN IN WITH AUTH PROVIDERS */
+  signInWithPopup = (authProvider) => {
+    let provider = "";
+
+    switch (authProvider) {
+      case "google":
+        provider = this.googleProvider;
+        break;
+
+      default:
+        provider = null;
+        break;
+    }
+
+    if (provider) {
+      return this.auth.signInWithPopup(provider);
+    }
+  };
 }
 
 export default Firebase;

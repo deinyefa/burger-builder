@@ -15,6 +15,8 @@ import { withFirebase } from "../../firebase";
 const SignUpFormBase = (props) => {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
   const [errMessage, setErrMessage] = useState("");
+  const [user, setUser] = useState();
+  const [cred, setCred] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +31,18 @@ const SignUpFormBase = (props) => {
       .catch((err) => setErrMessage(err.message));
   };
 
+  const signUpWithProvider = (provider) =>
+    props.firebase
+      .signInWithPopup(provider)
+      .then((result) => {
+        const credential = result.credential;
+        console.log("cred", credential);
+      })
+      .catch((error) => {
+        const email = error.email;
+        console.log(email, error);
+      });
+
   return (
     <Container>
       <Row>
@@ -37,6 +51,13 @@ const SignUpFormBase = (props) => {
             <CardBody>
               <h2>Start ordering burgers</h2>
               <p className="lead">Start ordering from our awesome selection</p>
+              <div className="mb-4 text-center">
+                <Button onClick={() => signUpWithProvider("google")}>
+                  Google
+                </Button>
+                <Button className="mx-2">Facebook</Button>
+                <Button>GitHub</Button>
+              </div>
 
               <Form onSubmit={(e) => handleSubmit(e)}>
                 <Input
