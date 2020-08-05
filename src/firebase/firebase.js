@@ -1,5 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -14,6 +15,7 @@ class Firebase {
     app.initializeApp(firebaseConfig);
 
     this.auth = app.auth();
+    this.db = app.firestore;
 
     this.auth.useDeviceLanguage();
     this.googleProvider = new app.auth.GoogleAuthProvider();
@@ -50,6 +52,13 @@ class Firebase {
       return this.auth.signInWithPopup(provider);
     }
   };
+
+  createBurger = (ingredients, name, price) =>
+    this.db.collection("menu").doc(name).set({
+      ingredients,
+      name,
+      price,
+    });
 }
 
 export default Firebase;
