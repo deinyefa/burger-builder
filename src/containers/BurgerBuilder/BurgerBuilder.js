@@ -8,22 +8,18 @@ import INGREDIENT_PRICES from "../../constants/IngredientPrices";
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
+    ingredients: {
+      bacon: 0,
+      cheese: 0,
+      meat: 0,
+      salad: 0,
+    },
     totalPrice: 2,
     purchasable: false,
     purchasing: false,
     loading: false,
     error: false,
   };
-
-  // componentDidMount = () => {
-  // 	axios
-  // 		.get(baseURL + "/ingredients.json")
-  // 		.then(res => {
-  // 			this.setState({ ingredients: res.data });
-  // 		})
-  // 		.catch(err => this.setState({ error: true }));
-  // };
 
   addIngredientHandler = (type) => {
     const { ingredients, totalPrice } = this.state;

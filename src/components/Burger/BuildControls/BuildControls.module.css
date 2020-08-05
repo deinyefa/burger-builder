@@ -1,5 +1,5 @@
 .BuildControls {
-  width: 100%;
+  flex: 1;
   background-color: #cf8f23;
   display: flex;
   flex-flow: column;
@@ -14,7 +14,7 @@
   font: inherit;
   font-size: 20px;
   text-transform: uppercase;
-  padding: .5em 2em;
+  padding: 0.5em 2em;
   margin: 2em auto 15px;
   background: #17b518;
   border-color: #17b518;
@@ -25,13 +25,12 @@
 }
 
 .BuildControls .Checkout:hover {
-  background: #004F00;
-  border-color: #004F00;;
+  background: #004f00;
+  border-color: #004f00;
 }
 
-
 .BuildControls .Checkout:disabled {
-  background-color: #C7C6C6;
+  background-color: #c7c6c6;
   cursor: not-allowed;
   border: 1px solid #ccc;
   color: #888888;
@@ -43,12 +42,12 @@
 
 @keyframes enable {
   0% {
-      transform: scale(1);
+    transform: scale(1);
   }
   60% {
-      transform: scale(1.1);
+    transform: scale(1.1);
   }
   100% {
-      transform: scale(1);
+    transform: scale(1);
   }
 }

@@ -1,3 +1,4 @@
 .Layout {
-	margin: 72px auto 2em;
+  margin: 72px auto 2em;
+  display: flex;
 }

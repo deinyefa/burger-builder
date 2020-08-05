@@ -9,3 +9,7 @@
   cursor: pointer;
   outline: none;
 }
+.Input {
+  margin: 1em 0;
+  width: 100%;
+}
