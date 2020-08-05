@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { withRouter } from "react-router-dom";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Burger from "../../components/Burger/Burger";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
@@ -7,7 +8,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import INGREDIENT_PRICES from "../../constants/IngredientPrices";
 import { withFirebase } from "../../firebase";
 
-const BurgerBuilder = () => {
+const BurgerBuilder = (props) => {
   const [ingredients, setIngredients] = useState({
     bacon: 0,
     cheese: 0,
@@ -78,19 +79,11 @@ const BurgerBuilder = () => {
 
   const purchaseCancelHandler = () => setPurchasing((p) => !p);
 
-  const purchaseContinueHandler = () => {
-    const queryParams = [];
-    for (let i in ingredients) {
-      queryParams.push(
-        encodeURIComponent(i) + "=" + encodeURIComponent(ingredients[i])
-      );
-    }
-    queryParams.push("price=" + price);
-    const queryString = queryParams.join("&");
-    // props.history.push({
-    //   pathname: "/checkout",
-    //   search: "?" + queryString,
-    // });
+  const purchaseContinueHandler = (name) => {
+    props.firebase
+      .createBurger(ingredients, name, price)
+      .then(() => console.log("Document successfully written!"))
+      .catch((error) => setError(error.message));
   };
 
   const disabledInfo = {
@@ -108,7 +101,7 @@ const BurgerBuilder = () => {
     <OrderSummary
       ingredients={ingredients}
       purchaseCanceled={purchaseCancelHandler}
-      purchaseContinued={purchaseContinueHandler}
+      purchaseContinued={(burgerName) => purchaseContinueHandler(burgerName)}
       orderTotal={price.toFixed(2)}
     />
   );
@@ -151,4 +144,4 @@ const BurgerBuilder = () => {
   );
 };
 
-export default withFirebase(BurgerBuilder);
+export default withRouter(withFirebase(BurgerBuilder));

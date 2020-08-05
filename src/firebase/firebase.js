@@ -1,6 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
-import "firebase/database";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -15,7 +15,7 @@ class Firebase {
     app.initializeApp(firebaseConfig);
 
     this.auth = app.auth();
-    this.db = app.firestore;
+    this.db = app.firestore();
 
     this.auth.useDeviceLanguage();
     this.googleProvider = new app.auth.GoogleAuthProvider();

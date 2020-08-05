@@ -42,10 +42,10 @@ const OrderSummary = (props) => {
         className={OrderSummaryStyles.Order}
         btnType="Success"
         disabled={!!!burgerName}
-        clicked={props.purchaseContinued}
+        clicked={() => props.purchaseContinued(burgerName)}
       >
         {burgerName
-          ? `Add ${burgerName} to your menu`
+          ? `Add "${burgerName}" to your menu`
           : "Provide a name for your creation"}
       </Button>
     </>
