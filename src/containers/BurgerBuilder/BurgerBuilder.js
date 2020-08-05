@@ -80,10 +80,17 @@ const BurgerBuilder = (props) => {
   const purchaseCancelHandler = () => setPurchasing((p) => !p);
 
   const purchaseContinueHandler = (name) => {
+    setLoading(true);
     props.firebase
       .createBurger(ingredients, name, price)
-      .then(() => console.log("Document successfully written!"))
-      .catch((error) => setError(error.message));
+      .then(() => {
+        setLoading(false);
+        props.history.push("/menu");
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error.message);
+      });
   };
 
   const disabledInfo = {

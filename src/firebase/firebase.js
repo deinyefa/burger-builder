@@ -59,6 +59,8 @@ class Firebase {
       name,
       price,
     });
+
+  fetchBurgers = () => this.db.collection("menu").get();
 }
 
 export default Firebase;

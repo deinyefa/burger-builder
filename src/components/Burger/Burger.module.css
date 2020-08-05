@@ -7,6 +7,11 @@
   font-size: 1.2rem;
 }
 
+.SmallBurger {
+  width: 150px !important;
+  height: 200px !important;
+}
+
 @media screen and (min-width: 1000px) and (min-height: 700px) {
   .Burger {
     width: 700px;

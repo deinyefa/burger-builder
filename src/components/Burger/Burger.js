@@ -21,7 +21,11 @@ const burger = (props) => {
 
   return (
     <div style={{ flex: 1 }}>
-      <div className={BurgerStyles.Burger}>
+      <div
+        className={`${BurgerStyles.Burger} ${
+          props.small ? BurgerStyles.SmallBurger : ""
+        }`}
+      >
         <BurgerIngredient type="bread-top" />
         {transformedIngredients}
         <BurgerIngredient type="bread-bottom" />
