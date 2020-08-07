@@ -62,11 +62,10 @@ class Firebase {
       price,
     });
 
-  fetchBurgers = (uuid) => {
-    if (uuid)
-      return this.db.collection("orders").doc(uuid).collection("order").get();
-    return this.db.collection("menu").get();
-  };
+  fetchBurgers = () => this.db.collection("menu").get();
+
+  fetchOrders = (uuid) =>
+    this.db.collection("orders").doc(uuid).collection("order").get();
 
   placeOrder = (order, uuid) => {
     const d = app.firestore.Timestamp.fromDate(new Date()).seconds.toString();

@@ -12,7 +12,7 @@ const PastOrders = (props) => {
       try {
         const uuid = props.firebase.getCurrentUser().uid;
         props.firebase
-          .fetchBurgers(uuid)
+          .fetchOrders(uuid)
           .then((snapshot) => {
             let data = [];
             snapshot.forEach((doc) => {
