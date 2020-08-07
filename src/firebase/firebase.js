@@ -21,6 +21,8 @@ class Firebase {
     this.googleProvider = new app.auth.GoogleAuthProvider();
   }
 
+  getCurrentUser = () => this.auth.currentUser;
+
   createUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -61,6 +63,9 @@ class Firebase {
     });
 
   fetchBurgers = () => this.db.collection("menu").get();
+
+  placeOrder = (order, uuid) =>
+    this.db.collection("orders").doc(uuid).set(order);
 }
 
 export default Firebase;

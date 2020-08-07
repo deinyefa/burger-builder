@@ -20,15 +20,9 @@ const BurgerDetails = (props) => {
       <ul>{ingredientsSummary}</ul>
       <p style={{ marginBottom: "0.5em" }}>Quantity</p>
       <div className={BurgerDetailsStyles.QuantityWrapper}>
-        <Button
-          onClick={() => props.handleQuantityChange("not-add", props.price)}
-        >
-          -
-        </Button>
+        <Button onClick={() => props.handleQuantityChange("not-add")}>-</Button>
         <p>{props.quantity}</p>
-        <Button onClick={() => props.handleQuantityChange("add", props.price)}>
-          +
-        </Button>
+        <Button onClick={() => props.handleQuantityChange("add")}>+</Button>
       </div>
       <p style={{ marginTop: "1em" }}>
         Your total is:{" "}
@@ -39,7 +33,12 @@ const BurgerDetails = (props) => {
           }).format(props.quantity * props.price)}
         </strong>
       </p>
-      <Button color="success">Add to cart</Button>
+      <Button
+        color="success"
+        onClick={() => props.addToCart(props.name, props.quantity, props.price)}
+      >
+        Add to cart
+      </Button>
     </>
   );
 };

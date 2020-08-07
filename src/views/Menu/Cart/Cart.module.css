@@ -1,0 +1,10 @@
+.CartIcon {
+  position: fixed;
+  right: 15px;
+  top: 65px;
+  border-radius: 50px;
+}
+
+.CartBadge {
+  position: absolute !important;
+}
