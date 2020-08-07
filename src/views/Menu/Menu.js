@@ -31,7 +31,7 @@ const Menu = (props) => {
         .catch((err) => console.log("err", err));
     };
     fetchBurgers();
-  }, []);
+  }, [props.firebase]);
 
   const handleQuantityChange = (operand) => {
     if (quantity >= 1 && operand === "add") {

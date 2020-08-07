@@ -62,10 +62,21 @@ class Firebase {
       price,
     });
 
-  fetchBurgers = () => this.db.collection("menu").get();
+  fetchBurgers = (uuid) => {
+    if (uuid)
+      return this.db.collection("orders").doc(uuid).collection("order").get();
+    return this.db.collection("menu").get();
+  };
 
-  placeOrder = (order, uuid) =>
-    this.db.collection("orders").doc(uuid).set(order);
+  placeOrder = (order, uuid) => {
+    const d = app.firestore.Timestamp.fromDate(new Date()).seconds.toString();
+    return this.db
+      .collection("orders")
+      .doc(uuid)
+      .collection("order")
+      .doc(d)
+      .set(order);
+  };
 }
 
 export default Firebase;

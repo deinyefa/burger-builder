@@ -5,10 +5,8 @@ import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 import Layout from "./containers/Layout/Layout";
 import Login from "./views/Login";
 import Menu from "./views/Menu/Menu";
+import PastOrders from "./views/Menu/PastOrders";
 import Register from "./views/Register";
-// import Orders from "./containers/Orders/Orders";
-
-// import appStyles from './App.module.css';
 
 function App() {
   return (
@@ -19,8 +17,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/menu" component={Menu} />
-        {/* <Route path="/checkout" component={Checkout} />
-        <Orders path="/orders" component={Orders} /> */}
+        <Route path="/orders" component={PastOrders} />
       </Switch>
     </Layout>
   );
