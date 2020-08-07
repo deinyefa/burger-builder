@@ -1,0 +1,8 @@
+.QuantityWrapper {
+  display: flex;
+}
+
+.QuantityWrapper p {
+  margin: 0 1em;
+  align-self: center;
+}
